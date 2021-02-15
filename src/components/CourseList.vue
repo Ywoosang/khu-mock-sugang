@@ -1,0 +1,141 @@
+<template>
+   <div class="content susin-list">
+                <div class="itb-title">
+                    <a style="letter-spacing:-2px; font-weight:500; font-size:16px;">수강신청내역</a>
+                    <a class="buttonset">
+                        <span class="item" id="meta_3">총 신청가능학점<em> 21</em>학점</span>
+                        <span class="item" id="meta_4">신청과목수<em class="totalNumber">0</em>과목</span>
+                        <span class="item" id="meta_5">신청학점<em class="totalScore">0</em>학점</span>
+                    </a>
+                </div>
+                <!-- item block wrapper -->
+                <div class="itb-cover">
+                    <div style="width:100%;" class="itb susin">
+                        <div class="itm susin-itm">
+                            <a class="itm-num"></a>
+                            <a class="itm-apply" style="width:70px;">수강삭제</a>
+                            <a class="itm-snum">학수번호-분반</a>
+                            <a class="itm-cname">강좌명</a>
+                            <a class="itm-grd">대상학년</a>
+                            <a class="itm-gname">교수명</a>
+                            <a class="itm-hakzum">학점</a>
+                            <a class="itm-time">강의시간/강의실</a>
+                            <a class="itm-isgub">이수구분</a>
+                            <a class="itm-zsugang">재수강 여부</a>
+                            <a class="itm-bigo">비고</a>
+                            <a style="width:298px"></a>
+                        </div>
+                    </div>
+                </div>
+                <!--  -->
+                <div class="itm-warn susin-warn">
+                    <a><i class="fas fa-exclamation-circle">
+                        </i> 이수구분 : 11 전공기초, 04 전공필수, 05 전공선택, 06 교직과, 14 중핵교과, 15 배분이수교과, 16 기초교과, 17 자유이수, 20
+                        교직전선, 24
+                        계절학기전공필수, 27 계절학기전공선택, 08 자유선택교과[배움학점제,군사학,취업스쿨,학점교류 과목등]</a>
+                </div>
+            </div>
+</template>
+
+<script>
+export default {
+
+}
+</script>
+
+<style>
+.itb-title{
+    color: black;
+    font-weight: 500;
+    margin: 15px 0 0 0;
+    height: 42px;
+    line-height: 42px;
+    /* border: 1px solid red; */
+}
+/* 수강신청 내역 아이템 */
+.susin-itm{
+    display: flex;
+    justify-content: space-around;
+}
+.itm .itm-time{
+    text-align: center;
+}
+.itm .itm-isgub{
+    width: 132px;
+}
+.itm .itm-zsugan{
+    width: 88px;
+}
+.itm .itm-bigo{
+    width: 132px;
+}
+
+
+/* 수강 신청 내역 */
+.susin-list{
+    position: relative;
+    /* border: 1px solid #d5d9e0; */
+    border: none;
+    width: 1660px;
+    height: 480px;
+}
+.susin{
+    width: inherit;
+}
+.susin-title,.susin-itm{
+    width: inherit;
+    overflow: hidden;
+}
+.itb-cover{
+    border: 1px solid #d5d9e0;
+    width: inherit;
+    display: flex;
+    flex-direction: column;
+    height:450px
+}
+/* 자바스크립트로 만들어 붙이는 영역 */
+.delete-btn{
+    display: inline-block;
+    width: 56px;
+    height: 28px;
+    border-radius: 3px;
+    padding : 0px 8px 2px;
+    background-color: #D55E5F;
+    color: white; 
+    border: 1px solid  rgb(184, 17, 17);
+}
+.delete-btn:hover{
+    background-color: rgba(175, 10, 10, 0.842);
+}
+
+.buttonset{
+    float: right;
+}
+.item{
+    margin: 0 15px;
+    font-weight: 400;
+    font-size: 14px;
+    position: relative;
+}
+.item:nth-child(1)::after,.item:nth-child(2)::after{
+    content: '';
+    width: 1px;
+    height: 12px;
+    top: 5px;
+    right: -17px;
+    position: absolute;
+    background-color: #ddd;
+}
+.item em{
+    font-style: normal;
+    font-weight: 700;
+    font-size: inherit;
+    color: #fe842f;
+}
+.susin-warn{
+    width: 1660px;
+    position:absolute;
+    bottom:-39px;
+    left:0; 
+}
+</style>
