@@ -53,11 +53,10 @@ export default {
   border-bottom: 1px solid #b6985a;
   padding: -1px;
 }
-.tab {
-  width: 112px;
-  height: 42px;
-  padding: 11px -4px 17px 12px;
-  margin: 0;
+.tab{
+    height:42px;
+    padding: 0 20px;
+    margin:0;
 }
 .tab-img {
   object-fit: contain;
