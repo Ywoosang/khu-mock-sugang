@@ -262,7 +262,6 @@ export default {
   methods: {
      range: (l) => Array.apply(null, { length: l }).map((_,index)=> index+1),
     searchCourse() {
-     
         this.contents = [] 
         this.loading = true;
         setTimeout(() => {
@@ -277,8 +276,9 @@ export default {
 
     },
      courseApply(num){
-        if(this.modalPause) return; 
-        this.$emit('apply',num);
+        setTimeout(()=>{
+            this.$emit('apply',num); 
+        },1200)
     }
   },
 };
