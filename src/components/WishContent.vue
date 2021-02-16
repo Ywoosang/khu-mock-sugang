@@ -17,12 +17,26 @@
           <a class="itm-time">강의시간/강의실</a>
           <a class="itm-isgub">이수구분</a>
         </div>
-        <div class="itm" 
-            v-for="content in contents" 
-            v-bind:class="{ 'spare-itm': (content.num >=8 && !registered),'selected-itm' : registered }" 
-            v-bind:key="content.num" >
+        <div
+          class="itm"
+          v-for="content in contents"
+          v-bind:class="{
+            'spare-itm': content.num >= 8 && !content.registered,
+            'selected-itm': content.registered,
+          }"
+          v-bind:key="content.num"
+        >
           <a class="itm-num">{{ content.num }}</a>
-          <a class="itm-apply"><button @click="() => courseApply(content.num)" class="apply-btn">신청</button></a>
+          <a class="itm-apply">
+            <button
+              v-if="!content.registered"
+              @click="() => courseApply(content.num)"
+              class="apply-btn"
+            >
+              신청
+            </button>
+            <span v-else style="color: red">완료</span>
+          </a>
           <a class="itm-clf">{{ content.division }}</a>
           <a class="itm-snum">ADD123-01</a>
           <a class="itm-cname">{{ content.name }}</a>
@@ -38,7 +52,6 @@
         </div>
       </div>
     </div>
-
     <div class="itm-notice">
       <a
         ><i
@@ -56,38 +69,63 @@
 
 <script>
 export default {
-  props: ["isSearch","modalPause"],
+  props: ["isSearch", "courseFull","savedCourses"],
   data() {
     return {
       loading: true,
       contents: [],
-      courseNum :'',
-      registered : false,
-      pause : false 
+      courseNum: "",
+      rigisterPause: false,
     };
   },
   created() {
     setTimeout(() => {
-        this.makeContents();
+      if(this.savedCourses !== null){
+        this.contents = this.savedCourses; 
+        return;
+      }
+      this.makeContents();
     }, 1500);
   },
   methods: {
-    range: (l) => Array.apply(null, { length: l }).map((_,index)=> index+1),
-    makeContents(){
-        const arr = this.range(10); 
-        this.contents = arr.map(num => {
-            const obj = {}
-            obj.num = num;
-            obj.division = num <= 7 ? '희망과목' : '예비과목';
-            obj.name = num !== 10 ? '신청연습' : '인원 초과 연습';
-            return obj; 
-        }); 
+    range: (l) => Array.apply(null, { length: l }).map((_, index) => index + 1),
+    makeContents() {
+      const arr = this.range(10);
+      this.contents = arr.map((num) => {
+        const obj = {};
+        obj.num = num;
+        obj.division = num <= 7 ? "희망과목" : "예비과목";
+        obj.name = num !== 10 ? "신청연습" : "인원 초과 연습";
+        obj.registered = false;
+        return obj;
+      });
     },
-    courseApply(num){
-        if(this.modalPause) return; 
-        this.$emit('apply',num);
-    }
-
+    courseApply(num) {
+      if(this.rigisterPause) return;
+      this.rigisterPause = true; 
+      new Promise((resolve) => {
+        setTimeout(() => {
+          this.$emit("apply", num);
+          if (this.courseFull || num === 10) {
+             this.rigisterPause = false;
+             return; 
+          } 
+          resolve();
+        }, 1500);
+      }).then(() => {
+        this.doneContents(num); 
+        this.$emit('save',this.contents); 
+        this.rigisterPause= false;
+      });
+    },
+    doneContents(num) {
+      this.contents.filter((el, index) => {
+        if (index + 1 === num) {
+          el.registered = true;
+        }
+        return el;
+      });
+    },
   },
 };
 </script>
