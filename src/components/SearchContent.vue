@@ -209,7 +209,7 @@
           </div>
           <div v-for="num in contents" v-bind:key="num" class="itm">
             <a class="emt">{{ num }}</a>
-            <a class="itm-apply"><button class="apply-btn">신청</button></a>
+            <a class="itm-apply"><button @click="courseApply" class="apply-btn">신청</button></a>
             <a class="itm-snum">ADD123-01</a>
             <a class="itm-cname">강좌 {{ num }}</a>
             <a class="itm-grd">0</a>
@@ -270,13 +270,16 @@ export default {
           this.contents = this.courseNum.trim() === '' ? this.range(10) : this.range(1);
           return; 
         },1500);
-    
     },
     keyPrevent(e){
       alert('매크로 방지를 위해 엔터키와 스페이스바 키는 사용하실 수 없습니다.')
       e.returnValue = false;
 
     },
+     courseApply(num){
+        if(this.modalPause) return; 
+        this.$emit('apply',num);
+    }
   },
 };
 </script>
