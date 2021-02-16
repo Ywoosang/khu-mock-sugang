@@ -34,7 +34,7 @@
         <div v-for="num in courseList" :key="num" class="itm susin-itm">
           <a class="itm-num">{{ num }}</a>
           <a class="itm-apply" style="width: 70px"
-            ><button @click="deleteCourse" class="delete-btn">삭제</button></a
+            ><button @click="()=>deleteCourse(num)" class="delete-btn">삭제</button></a
           >
           <a class="itm-snum">ADD123-01</a>
           <a class="itm-cname">삭제연습{{ num }}</a>
@@ -50,7 +50,7 @@
       </div>
     </div>
     <!--  -->
-    <div class="itm-warn susin-warn">
+    <div class="itm-warn itm-notice">
       <a
         ><i class="fas fa-exclamation-circle"> </i> 이수구분 : 11 전공기초, 04
         전공필수, 05 전공선택, 06 교직과, 14 중핵교과, 15 배분이수교과, 16
@@ -66,8 +66,8 @@
 export default {
   props: ["courseList"],
   methods :{
-      deleteCourse(){
-          this.$emit('delete')
+      deleteCourse(num){
+          this.$emit('delete',num)
       }
   }
 
@@ -86,7 +86,7 @@ export default {
 /* 수강신청 내역 아이템 */
 .susin-itm {
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
 }
 .itm .itm-time {
   text-align: center;
