@@ -12,13 +12,6 @@
           <col width="100px;" />
           <col width="15%" />
         </colgroup>
-        <form name="form" id="form"></form>
-        <input type="hidden" value="1" />
-        <input type="hidden" value="" />
-        <input type="hidden" value="S" />
-        <input type="hidden" />
-        <input type="hidden" />
-        <input type="hidden" />
         <tbody>
           <tr>
             <th id="hide4">대학</th>
@@ -79,12 +72,13 @@
             </td>
             <th id="hide6">강좌명</th>
             <td>
-              <input type="text" placeholder="검색어 (Search Word)" />
+              <input   @keydown.space="keyPrevent"
+                @keydown.enter="keyPrevent" type="text" placeholder="검색어 (Search Word)" />
             </td>
             <th id="hide10">언어구분</th>
             <td>
               <select
-                :style="{ 'background-image': 'url(bg-select.png)' }"
+               :style="{ 'background-image': 'url(/bg-select.png)' }"
                 name="p_lang"
                 id="p_lang"
                 style="width: 100%"
@@ -102,7 +96,6 @@
               <select
                 :style="{ 'background-image': 'url(/bg-select.png)' }"
                 name="p_day"
-                id="p_day"
                 style="width: 100%"
               >
                 <option value="">- All -</option>
@@ -161,12 +154,17 @@
             </td>
             <th id="hide9">교수명</th>
             <td>
-              <input type="text" placeholder="검색어 (Search Word)" />
+              <input 
+                @keydown.space="keyPrevent"
+                @keydown.enter="keyPrevent"
+              type="text" placeholder="검색어 (Search Word)" />
             </td>
             <th id="hide11">학수번호<br />분반</th>
             <td>
               <input
                 v-model="courseNum"
+                @keydown.space="keyPrevent"
+                @keydown.enter="keyPrevent"
                 type="text"
                 class="courseINumber"
                 placeholder="검색어 (Search Word)"
@@ -180,12 +178,13 @@
           @click="searchCourse"
           :style="{ 'background-image': 'url(search.png)' }"
           class="btn-search"
-          onclick="searchCourse();"
         >
           조회
         </button>
       </div>
     </div>
+
+
     <div class="search-content">
       <div class="itb-wrapper">
         <div class="itb search-itms">
@@ -215,8 +214,8 @@
             <a class="itm-cname">강좌 {{ num + 1 }}</a>
             <a class="itm-grd">0</a>
             <a class="itm-znum">30</a>
-            <a class="itm-zanum">잔여인원</a>
-            <a class="itm-stime">신청가능시간</a>
+            <a class="itm-zanum">8</a>
+            <a class="itm-stime"></a>
             <a class="itm-gname">교수{{ num + 1 }}</a>
             <a class="itm-hakzum">3</a>
             <a class="itm-time">월 10:30-13:00 (강의실)</a>
@@ -244,109 +243,149 @@
 </template>
 
 <script>
+
 export default {
   props: ["isSearch"],
   data() {
     return {
       loading: true,
       contents: [],
+      courseNum :''
     };
   },
   created() {
     setTimeout(() => {
       this.loading = false;
-      this.contents = this.range(8);
+      this.contents = this.range(10);
     }, 1500);
   },
   methods: {
     range: (l) => Array.apply(null, { length: l }).map(Number.call, Number),
+    searchCourse() {
+     
+        this.contents = [] 
+        this.loading = true;
+        setTimeout(() => {
+          this.loading = false; 
+          this.contents = this.courseNum.trim() === '' ? this.range(10) : this.range(1);
+          return; 
+        },1500);
+    
+    },
+    keyPrevent(e){
+      alert('매크로 방지를 위해 엔터키와 스페이스바 키는 사용하실 수 없습니다.')
+      e.returnValue = false;
+
+    },
   },
 };
 </script>
 
 <style>
 /* 검색 탭 */
-.pnl-search {
-  margin-top: 15px;
-  position: relative;
-  margin-bottom: 15px;
-  padding: 11px 20px;
-  border-radius: 6px;
-  border: 1px solid #e5e5e5;
+ .pnl-search {
+    margin-top: 15px;
+    position: relative;
+    margin-bottom: 15px;
+    padding: 11px 20px;
+    border-radius: 6px;
+    border: 1px solid #e5e5e5;
 }
 .pnl-search table {
-  width: calc(100% - 100px);
-  max-width: 1300px;
-  table-layout: fixed;
-  border-spacing: 0;
-  position: static;
-  display: table;
-  border-collapse: separate;
-  text-indent: initial;
-  border-color: grey;
+    width: calc(100% - 100px);
+    max-width: 1300px;
+    table-layout: fixed;
+    border-spacing: 0;
+    position: static;
+    display: table;
+    border-collapse: separate;
+    text-indent: initial;
+    border-color: grey;
 }
-.pnl-search td + th {
-  padding-left: 25px;
+.pnl-search td+th {
+    padding-left: 25px;
 }
 .pnl-search th {
-  padding: 0 0 2px;
-  font-size: 12px;
-  line-height: 1.1;
-  word-spacing: -0.5px;
-  text-align: left;
-  vertical-align: middle;
+    padding: 0 0 2px;
+    font-size: 12px;
+    line-height: 1.1;
+    word-spacing: -.5px;
+    text-align: left;
+    vertical-align: middle;
 }
 tbody {
-  display: table-row-group;
-  vertical-align: middle;
-  border-color: inherit;
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
 }
 tr {
-  display: table-row;
-  vertical-align: inherit;
-  border-color: inherit;
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
 }
 table th {
-  position: relative;
-  padding: 7px 3px 0 0;
-  font-weight: 700;
-  color: #4d4d4d;
-  text-align: right;
-  vertical-align: top;
-  height: 34px;
-  font-weight: 400;
-  font-size: 13px;
-  line-height: 34px;
-  letter-spacing: -0.5px;
-  border: 1px solid #b9b9b9;
-  border-radius: 0;
-  -moz-appearance: none;
-  appearance: none;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  border-color: #ccc;
-  outline: none;
-  padding: 0 5px;
+    position: relative;
+    padding: 7px 3px 0 0;
+    font-weight: 700;
+    color: #4d4d4d;
+    text-align: right;
+    vertical-align: top;
+}
+select {
+    outline: none;
+    appearance: none;
+    width: 100%;
+    height: 34px;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 34px;
+    letter-spacing: -.5px;
+    border: 1px solid #b9b9b9;
+    border-radius: 0;
+    box-sizing: border-box;
+    border-color: #ccc;
+    padding: 0 26px 2px 5px;
+    background-repeat: no-repeat;
+    background-position: right 8px top 50%;
+    line-height: 28px;
+}
+input{
+    width: 100%;
+    height: 34px;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 34px;
+    letter-spacing: -.5px;
+    border: 1px solid #b9b9b9;
+    border-radius: 0;
+    -moz-appearance: none;
+    appearance: none;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border-color: #ccc;
+    outline: none;
+    padding: 0 5px;
 }
 button.btn-search {
-  position: absolute;
-  top: 12px;
-  right: 20px;
-  background-color: #444;
-  border-color: #444;
-  color: #fff;
-  background-repeat: no-repeat;
-  background-position: 12px 8px;
-  padding-left: 32px;
-  box-sizing: border-box;
-  width: 70px;
-  height: 34px;
-  line-height: 34px;
-  font-size: 13px;
-  font-weight: 400;
-  cursor: pointer;
-  border-radius: 3px;
+    position:absolute;
+    top: 12px;
+    right: 20px;
+    background-color: #444;
+    border-color: #444;
+    color: #fff;
+    background-repeat: no-repeat;
+    background-position: 12px 8px;
+    padding-left: 32px;
+    box-sizing: border-box;
+    width: 70px;
+    height: 34px;
+    line-height: 34px;
+    font-size: 13px;
+    font-weight: 400;
+    cursor: pointer;
+    border-radius: 3px;
 }
+
 /* 로딩  */
 .loading {
   width: 100%;
