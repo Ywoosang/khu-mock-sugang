@@ -45,7 +45,7 @@ export default {
     left: 0;
     top: 0;
     overflow-y: hidden;
-    background-color: #253A73 ;
+    background-color: #253A73;
     width : 120px;
     height: 100%;
 }
