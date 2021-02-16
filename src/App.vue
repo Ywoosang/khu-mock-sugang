@@ -21,7 +21,6 @@
             v-bind:modalPause="isModal"
           ></wish-content>
         </template>
-
         <template v-else>
           <search-title></search-title>
           <search-content
@@ -88,11 +87,10 @@ export default {
         }, 1500);
         return;
       }
-      if (this.courseList.length === 7) {
+      if (this.courseList.length >= 7) {
         setTimeout(() => {
           this.showModal("이수가능학점을 초과했습니다.");
-          this.courseList.push(this.courseList.length + 1);
-        }, 1500);
+        }, 500);
         return;
       }
       setTimeout(() => {
