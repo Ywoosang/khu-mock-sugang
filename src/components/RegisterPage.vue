@@ -7,10 +7,15 @@
       v-bind:modalMessage="modalMessage"
       v-bind:courseDelete="isDelete"
     ></modal-window>
-    <side-bar></side-bar>
+    <side-bar
+    @noticeMenu="toNoticeMenu"
+    @courseMenu="toCourseMenu"
+    @registerMenu="toRegisterMenu"
+    ></side-bar>
     <section class="main">
-      <app-header></app-header>
-      <div class="content">
+      <app-header ></app-header>
+      <notice-menu v-if="noticeMenu"></notice-menu>
+      <div v-if="contentTotal" class="content">
         <select-tab
           v-bind:defaultTab="defaultValue"
           @tab="changeTab"
@@ -24,7 +29,7 @@
             v-bind:courseFull="courseFull"
           ></wish-content>
         </template>
-        <template v-else>
+        <template v-if="!defaultValue">
           <search-title></search-title>
           <search-content
             @apply="registerCourse"
@@ -33,7 +38,7 @@
           ></search-content>
         </template>
       </div>
-      <course-list @delete="deleteCourse" v-bind:courseList="courseList"></course-list>
+      <course-list v-if="listTotal" @delete="deleteCourse" v-bind:courseList="courseList"></course-list>
     </section>
     <app-footer></app-footer>
   </div>
@@ -50,6 +55,7 @@ import WishContent from "./WishContent.vue";
 import CourseList from "./CourseList.vue";
 import AppFooter from "./AppFooter.vue";
 import Modal from "./ModalWindow.vue";
+import NoticeMenu from "./NoticeSection.vue";
 
 export default {
   data() {
@@ -62,6 +68,11 @@ export default {
       courseList: [],
       savedCourses:null,
       pause:false,
+      //탭 변경
+      contentTotal:false,
+      listTotal:false, 
+      noticeMenu:true,
+      // 수강신청 내역일 경우
     };
   },
   computed:{
@@ -71,23 +82,43 @@ export default {
     } 
   },
   methods: {
+    // 메뉴 변경
+    toNoticeMenu(){
+        this.noticeMenu=true;
+        this.listTotal=false;
+        this.contentTotal=false;
+    },
+    toCourseMenu(){
+        this.noticeMenu=false;
+        this.contentTotal = false;
+        this.listTotal = true; 
+    },
+    toRegisterMenu(){
+        this.noticeMenu=false;
+        this.contentTotal = true;
+        this.listTotal = true; 
+    },
+    // 수강신청 페이지
     changeTab() {
       this.defaultValue = !this.defaultValue;
     },
     searchCourse(isSearch) {
       this.isSearch = isSearch;
     },
-    deleteCourse(){
-      this.isDelete = true; 
-      setTimeout(()=>{
-        this.courseList.pop();
-      },1500);
+    deleteCourse(num){
+        // 삭제문구 전송
+      if(this.pause) return;
+      this.pause =true;
+      this.isDelete = true;
+      this.showModal(`[삭제연습${num}] 을 삭제 하시겠습니까?`)
     },
     showModal(msg) {
+    // 모달창 생성 
       this.isModal = true;
       this.modalMessage = msg;
     },
     registerCourse(num) {
+      this.isDelete =false; 
       if(this.pause) return;
       this.pause =true;
       if (num === 10) {
@@ -106,9 +137,15 @@ export default {
       this.pause =false; 
     },
     // 삭제확인일 경우
-    modalAccept(isDelete){
-      if (isDelete) {
-        console.log("hi");
+    modalAccept(){
+      if(this.isDelete) {
+        this.isDelete=false;
+        this.isModal = false;
+        setTimeout(()=>{
+            this.isModal=true; 
+            this.showModal('삭제되었습니다.');
+            this.courseList.pop();
+        },1700);
       }
       this.isModal = false;
       this.pause =false; 
@@ -128,6 +165,7 @@ export default {
     "course-list": CourseList,
     "app-footer": AppFooter,
     "modal-window": Modal,
+    "notice-menu": NoticeMenu,
   },
 };
 </script>
@@ -188,7 +226,7 @@ button {
 
 .content {
   width: 1660px;
-  margin: 85px 25px 105px 25px;
+  margin: 75px 25px 105px 25px;
   font-size: 0;
 }
 /* 공통 클래스 추가 */
