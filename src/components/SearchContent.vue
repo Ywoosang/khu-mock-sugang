@@ -208,15 +208,15 @@
             <div class="loading-bar">Loading ...</div>
           </div>
           <div v-for="num in contents" v-bind:key="num" class="itm">
-            <a class="emt">{{ num + 1 }}</a>
+            <a class="emt">{{ num }}</a>
             <a class="itm-apply"><button class="apply-btn">신청</button></a>
             <a class="itm-snum">ADD123-01</a>
-            <a class="itm-cname">강좌 {{ num + 1 }}</a>
+            <a class="itm-cname">강좌 {{ num }}</a>
             <a class="itm-grd">0</a>
             <a class="itm-znum">30</a>
             <a class="itm-zanum">8</a>
             <a class="itm-stime"></a>
-            <a class="itm-gname">교수{{ num + 1 }}</a>
+            <a class="itm-gname">교수{{ num }}</a>
             <a class="itm-hakzum">3</a>
             <a class="itm-time">월 10:30-13:00 (강의실)</a>
             <a class="itm-isgub"></a>
@@ -260,7 +260,7 @@ export default {
     }, 1500);
   },
   methods: {
-    range: (l) => Array.apply(null, { length: l }).map(Number.call, Number),
+     range: (l) => Array.apply(null, { length: l }).map((_,index)=> index+1),
     searchCourse() {
      
         this.contents = [] 
