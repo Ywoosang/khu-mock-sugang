@@ -1,22 +1,37 @@
 <template>
   <div class="wrapper">
+    <modal-window
+      @close="modalClose"
+      @accept="modalAccept"
+      v-if="isModal"
+      v-bind:modalMessage="modalMessage"
+    ></modal-window>
     <side-bar></side-bar>
     <section class="main">
       <app-header></app-header>
       <div class="content">
-        <select-tab v-bind:defaultTab="defaultValue" @tab="changeTab" ></select-tab>
+        <select-tab
+          v-bind:defaultTab="defaultValue"
+          @tab="changeTab"
+        ></select-tab>
         <template v-if="defaultValue">
           <wish-title></wish-title>
-          <wish-content></wish-content>
+          <wish-content
+            @apply="registerCourse"
+            v-bind:modalPause="isModal"
+          ></wish-content>
         </template>
 
         <template v-else>
-         <search-title></search-title>
-        <search-content  v-bind:isSearch="isSearch"></search-content>
+          <search-title></search-title>
+          <search-content
+            @apply="registerCourse"
+            v-bind:modalPause="isModal"
+            v-bind:isSearch="isSearch"
+          ></search-content>
         </template>
-
       </div>
-      <course-list></course-list>
+      <course-list @delete="deleteCourse" v-bind:courseList="courseList"></course-list>
     </section>
     <app-footer></app-footer>
   </div>
@@ -32,21 +47,71 @@ import SearchContent from "./components/SearchContent.vue";
 import WishContent from "./components/WishContent.vue";
 import CourseList from "./components/CourseList.vue";
 import AppFooter from "./components/AppFooter.vue";
+import Modal from "./components/ModalWindow.vue";
 
 export default {
   data() {
     return {
       defaultValue: true,
-      isSearch : false
+      isSearch: false,
+      isModal: false,
+      isDelete:false,
+      modalMessage: null,
+      courseList: [],
+      pause:false,
     };
   },
   methods: {
     changeTab() {
-      this.defaultValue = !this.defaultValue
+      this.defaultValue = !this.defaultValue;
     },
-    searchCourse(isSearch){
+    searchCourse(isSearch) {
       this.isSearch = isSearch;
-    }
+    },
+    deleteCourse(){
+      this.isDelete = true; 
+      setTimeout(()=>{
+        this.courseList.pop();
+        
+      },1500)
+    },
+    showModal(msg) {
+      this.isModal = true;
+      this.modalMessage = msg;
+    },
+    registerCourse(num) {
+      if(this.pause) return;
+      this.pause =true;
+      if (num === 10) {
+        setTimeout(() => {
+          this.showModal("수강 인원이 초과되었습니다.");
+        }, 1500);
+        return;
+      }
+      if (this.courseList.length === 7) {
+        setTimeout(() => {
+          this.showModal("이수가능학점을 초과했습니다.");
+          this.courseList.push(this.courseList.length + 1);
+        }, 1500);
+        return;
+      }
+      setTimeout(() => {
+        this.showModal("신청되었습니다.");
+        this.courseList.push(this.courseList.length + 1);
+      }, 1500);
+    },
+    modalClose() {
+      this.isModal = false;
+      this.pause =false; 
+    },
+    // 삭제확인일 경우
+    modalAccept(isDelete){
+      if (isDelete) {
+        console.log("hi");
+      }
+      this.isModal = false;
+      this.pause =false; 
+    },
   },
   components: {
     "app-header": AppHeader,
@@ -58,6 +123,7 @@ export default {
     "wish-content": WishContent,
     "course-list": CourseList,
     "app-footer": AppFooter,
+    "modal-window": Modal,
   },
 };
 </script>
@@ -132,7 +198,6 @@ button {
 .itm:hover {
   background-color: rgb(250, 250, 250);
 }
-
 
 /* 공통 미디어쿼리 */
 @media screen and (min-width: 1820px) {
