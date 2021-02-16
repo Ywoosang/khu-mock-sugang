@@ -6,46 +6,39 @@
           ><span style="font-weight: 400; font-size: 18px">알림</span
           >(notice)</a
         >
-        <button class="modal-close"></button>
+        <button @click="close" class="modal-close"></button>
       </div>
       <div class="middle">
         <a
           ><span style="color: rgb(226, 0, 0)"
             ><i class="fas fa-exclamation-triangle"></i></span
-          ><span style="font-size: 13px"> ${ text }</span></a
+          ><span style="font-size: 13px"> {{ modalMessage }}</span></a
         >
       </div>
       <div class="bottom">
-        <button class="gomain-btn">확인</button>
-      </div>
-    </div>
-    <div class="modal">
-      <div class="top">
-        <a class="modal-notice"
-          ><span style="font-weight: 400; font-size: 18px">알림</span
-          >(notice)</a
-        >
-        <button class="modal-close"></button>
-      </div>
-      <div class="middle">
-        <a
-          ><span style="color: rgb(226, 0, 0)"
-            ><i class="fas fa-exclamation-triangle"></i></span
-          ><span style="font-size: 13px"
-            >[삭제연습]을 삭제 하시겠습니까?</span
-          ></a
-        >
-      </div>
-      <div class="bottom">
-        <button class="gomain-btn">확인</button
-        ><button class="cancel-btn">취소</button>
+        <button @click="accept" class="gomain-btn">확인</button><button v-if="deleteModal" class="cancel-btn" style="margin-left : 10px;">취소</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  props :['modalMessage'],
+  data(){
+    return {
+      deleteModal:false,
+    }
+  },
+  methods: {
+    accept(){
+      this.$emit('accept')
+    },
+    close(){
+      this.$emit('close')
+    }
+  }
+};
 </script>
 
 <style>
@@ -59,7 +52,7 @@ export default {};
   background-color: rgba(0, 0, 0, 0.7);
 }
 .modal {
-  z-index: 1001;
+  z-index: 3;
   color: black;
   position: absolute;
   left: 50%;
