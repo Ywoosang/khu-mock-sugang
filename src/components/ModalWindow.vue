@@ -3,8 +3,8 @@
     <div class="modal">
       <div class="top">
         <a class="modal-notice"
-          ><span style="font-weight: 400; font-size: 18px">알림</span
-          >(notice)</a
+          ><span style="font-weight: 400; font-size: 18px">알림(notice)</span
+          ></a
         >
         <button @click="close" class="modal-close"></button>
       </div>
@@ -16,7 +16,7 @@
         >
       </div>
       <div class="bottom">
-        <button @click="accept" class="gomain-btn">확인</button><button v-if="deleteModal" class="cancel-btn" style="margin-left : 10px;">취소</button>
+        <button @click="accept" class="gomain-btn">확인</button><button v-if="courseDelete" class="cancel-btn" style="margin-left : 10px;">취소</button>
       </div>
     </div>
   </div>
@@ -24,12 +24,7 @@
 
 <script>
 export default {
-  props :['modalMessage'],
-  data(){
-    return {
-      deleteModal:false,
-    }
-  },
+  props :['modalMessage',"courseDelete"],
   methods: {
     accept(){
       this.$emit('accept')
