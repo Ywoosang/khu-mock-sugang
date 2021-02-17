@@ -11,8 +11,8 @@
       <div class="middle">
         <a
           ><span style="color: rgb(226, 0, 0)"
-            ><i class="fas fa-exclamation-triangle"></i></span
-          ><span style="font-size: 13px"> {{ modalMessage }}</span></a
+            ><i style="color:rgb(235, 34, 34); margin-right:3px;" class="fas fa-exclamation-triangle"></i></span
+          ><span style="font-size: 13px">  {{ modalMessage }}</span></a
         >
       </div>
       <div class="bottom">
