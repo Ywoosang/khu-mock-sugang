@@ -11,7 +11,7 @@ import HomePage from "./components/HomePage.vue";
 export default {
   data(){
     return {
-      timeLimit : 0,
+      timeLimit : 30,
       home : true,
     }
   },
