@@ -1,9 +1,9 @@
 <template>
-  <section class="sidebar">
-    <div class="nav">
-      <div class="myinfo">
-        <a style="font-weight: 400">KYUNG HEE</a>
-        <a style="padding: 0; font-size: 12px; font-weight: 500">1234567890</a>
+  <section class="re-sidebar">
+    <div class="re-nav">
+      <div class="re-myinfo"> 
+        <a style="font-weight: 400; font-size:16px">KYUNG HEE</a>
+        <a style="padding: 0; margin:0; font-size: 12px; font-weight: 500">2020109999</a>
       </div>
       <div class="wrap-menu">
         <ul>
@@ -15,8 +15,8 @@
             <img src="icon-planning.png" />
             <h4 class="menu-kor">종합시간표 조회</h4>
           </li>
-          <li @click="toWishList" class="m-el">
-            <img src="icon-subject.png" />
+          <li @click="toWishList" v-bind:class="{'selected-menu':menu.isWishList}" class="m-el">
+            <img src="icon-subject.png"/>
             <h4 class="menu-kor">희망과목내역</h4>
           </li>
           <li @click="toCourseList" v-bind:class="{'selected-menu':menu.isCourseList}" class="m-el">
@@ -41,6 +41,7 @@ export default {
       isCourseList:false,
       isRegister:false,
       isNotice:true,
+      isWishList:false,
       }
     }
   },
@@ -54,6 +55,9 @@ export default {
     }, 
     //희망과목탭
     toWishList(){
+       for(let menu in this.menu){
+        menu === 'isWishList' ? this.menu[menu] = true : this.menu[menu] =false;
+      }
       this.$emit('wishMenu')
     },
     //신청내역탭
@@ -76,7 +80,7 @@ export default {
 </script>
 
 <style>
-.sidebar{
+.re-sidebar{
     position: absolute;
     left: 0;
     top: 0;
@@ -85,11 +89,15 @@ export default {
     width : 120px;
     height: 100%;
 }
-.nav{
-    color : white;
+.wrapper .re-sidebar .re-nav{
+    
     text-align: center;
 } 
-.myinfo{
+.re-nav h4{
+   color : white ;
+}
+.re-myinfo{
+  color : white ;
     background-color:#717075;
     padding-top: 7px;
     display: flex;
