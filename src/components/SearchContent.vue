@@ -13,7 +13,7 @@
           <col width="15%" />
         </colgroup>
         <tbody>
-          <tr>
+          <tr style="margin-bottom:10px;">
             <th id="hide4">대학</th>
             <td>
               <select
@@ -211,7 +211,7 @@
             <a class="emt">{{ num }}</a>
             <a class="itm-apply"><button @click="courseApply" class="apply-btn">신청</button></a>
             <a class="itm-snum">ADD123-01</a>
-            <a class="itm-cname">강좌 {{ num }}</a>
+            <a style="text-align:left;" class="itm-cname">강좌 {{ num }}</a>
             <a class="itm-grd">0</a>
             <a class="itm-znum">30</a>
             <a class="itm-zanum">8</a>
@@ -267,6 +267,7 @@ export default {
         setTimeout(() => {
           this.loading = false; 
           this.contents = this.courseNum.trim() === '' ? this.range(10) : this.range(1);
+          this.$emit('searchNum',this.contents.length)
           return; 
         },1500);
     },
@@ -333,6 +334,9 @@ table th {
     color: #4d4d4d;
     text-align: right;
     vertical-align: top;
+}
+table td {
+    padding: 0 0 5px 5px;
 }
 select {
     outline: none;
