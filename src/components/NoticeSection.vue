@@ -1,7 +1,7 @@
 <template>
 <div class="content-panel">
   <notice-content></notice-content>
-  <notice-modal></notice-modal>
+  <notice-modal @home="goHomePage"></notice-modal>
 </div>
 </template>
 
@@ -12,6 +12,11 @@ export default {
     components : {
         'notice-modal' : NoticeModal,
         'notice-content' : NoticeContent
+    },
+    methods:{
+      goHomePage(){
+        this.$emit('home')
+      }
     }
 
 }
@@ -22,7 +27,7 @@ export default {
     padding: 25px;
     padding-top: 15px;
     box-sizing: border-box;
-    margin-top:85px;
+    margin-top:60px;
     width: calc(100vw - 120px);
 }
 .select{
