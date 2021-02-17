@@ -3,7 +3,7 @@
         <div class="title">
            <div class="title-text">
             <span>0000학년도 0학기 수강신청</span>
-            <a>로그아웃</a>
+            <a @click="goHomePage">로그아웃</a>
            </div>
         </div>
         <div class="main-text">
@@ -13,11 +13,11 @@
            </div>
            <div>
             <span><b>학번</b></span>
-            <span>1234567890</span>
+            <span>2020109999</span>
            </div>
            <div>
             <span><b>학과</b></span>
-            <span>소프트웨어 융합대학 소프트웨어 융합학과</span>
+            <span>소프트웨어융합대학 소프트웨어융합학과</span>
            </div>
            <div>
             <span><b>학년</b></span>
@@ -27,7 +27,7 @@
             <span><b>수강가능학점</b></span>
             <span>
                 <p>21</p>
-                <p>학점</p>
+                <a>학점</a>
             </span>
             </div>
         </div>
@@ -35,12 +35,18 @@
 </template>
 
 <script>
-export default {};
+export default {
+  methods:{
+    goHomePage(){
+      this.$emit('home')
+    }
+  }
+};
 </script>
 
 <style>
 .notice-modal {
-  z-index: 1001;
+  z-index: 4;
   width: 388px;
   height: 450px;
   position: absolute;
@@ -68,12 +74,15 @@ export default {};
   background-color: #f2f5fc;
   box-sizing: border-box;
 }
-.notice-modal .title-text {
+.notice-modal .title .title-text {
+  font-weight: 700;
+  word-spacing: -1px;
   display: flex;
 }
 .title-text span {
   margin-top: 42px;
   margin-left: 31px;
+  font-size: 16px;
 }
 .title-text a {
   margin-top: 42px;
@@ -95,27 +104,30 @@ export default {};
   height: 329px;
   background-color: #ffffff;
 }
-.main-text div {
+.notice-modal  .main-text div {
   border-bottom: 1px solid lightgray;
   width: 328px;
   height: 64px;
   margin-left: 32px;
+
 }
-.main-text div span {
+.notice-modal  .main-text div span {
   line-height: 64px;
+  font-weight: 400;
+  color: #666666;
 }
-.main-text div span:nth-child(1) {
+.notice-modal  .main-text div span:nth-child(1) {
   float: left;
   font-size: 14px;
 }
-.main-text div span:nth-child(2) {
+.notice-modal  .main-text div span:nth-child(2) {
   float: right;
   font-size: 15px;
 }
-.main-text div:last-child {
+.notice-modal  .main-text div:last-child {
   border: none;
 }
-.main-text div span p:nth-child(1) {
+.notice-modal  .main-text div span p:nth-child(1) {
   width: 26px;
   height: 26px;
   border-radius: 50%;
@@ -128,7 +140,7 @@ export default {};
   line-height: 26px;
   display: inline-block;
 }
-.main-text div span p:nth-child(2) {
+.notice-modal  .main-text div span p:nth-child(2) {
   position: absolute;
   width: 40px;
   height: 40px;
