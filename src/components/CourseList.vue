@@ -7,10 +7,10 @@
       <a class="buttonset">
         <span class="item" id="meta_3">총 신청가능학점<em> 21</em>학점</span>
         <span class="item" id="meta_4"
-          >신청과목수<em class="totalNumber">0</em>과목</span
+          >신청과목수<em class="totalNumber">{{ courseList.length }} </em>과목</span
         >
         <span class="item" id="meta_5"
-          >신청학점<em class="totalScore">0</em>학점</span
+          >신청학점<em class="totalScore">{{ courseList.length*3 }}</em>학점</span
         >
       </a>
     </div>
@@ -19,7 +19,7 @@
       <div style="width: 100%" class="itb susin">
         <div class="itm susin-itm">
           <a class="itm-num"></a>
-          <a class="itm-apply" style="width: 70px">수강삭제</a>
+          <a v-if="!courseMenu" class="itm-apply" style="width: 70px">수강삭제</a>
           <a class="itm-snum">학수번호-분반</a>
           <a class="itm-cname">강좌명</a>
           <a class="itm-grd">대상학년</a>
@@ -31,13 +31,16 @@
           <a class="itm-bigo">비고</a>
           <a style="width: 298px"></a>
         </div>
+        <div class="noCourses" v-if="noCourses">
+          <a>수강신청 내역이 없습니다.</a>
+        </div> 
         <div v-for="num in courseList" :key="num" class="itm susin-itm">
           <a class="itm-num">{{ num }}</a>
-          <a class="itm-apply" style="width: 70px"
+          <a v-if="!courseMenu" class="itm-apply" style="width: 70px"
             ><button @click="()=>deleteCourse(num)" class="delete-btn">삭제</button></a
           >
           <a class="itm-snum">ADD123-01</a>
-          <a class="itm-cname">삭제연습{{ num }}</a>
+          <a style="text-align:left;" class="itm-cname">삭제연습{{ num }}</a>
           <a class="itm-grd">0</a>
           <a class="itm-gname">교수{{ num }}</a>
           <a class="itm-hakzum">3</a>
@@ -64,11 +67,16 @@
 
 <script>
 export default {
-  props: ["courseList"],
+  props: ["courseList","courseMenu"],
   methods :{
       deleteCourse(num){
           this.$emit('delete',num)
       }
+  },
+  computed : {
+    noCourses(){
+      return this.courseList.length===0 ? true : false;
+    }
   }
 
 };
@@ -169,5 +177,17 @@ export default {
   position: absolute;
   bottom: -39px;
   left: 0;
+}
+.noCourses{
+  width : inherit;
+  height: 440px;
+  position:relative;
+  text-align: center;
+}
+.noCourses a{
+  position:absolute;
+  top: 50px;
+  font-size: 15px;
+  font-weight: 400;
 }
 </style>
