@@ -3,25 +3,63 @@
     <div class="nav-hide">
       <i class="fa fa-chevron-left arrow"></i>
     </div>
-    <div class="khu-logo"><img src="khu-logo.png" /></div>
+    <div @click="goHome" class="khu-logo"><img style="pointer-events:none;" src="khu-logo.png" /></div>
     <div class="timmer">
-      <div class="timerRemain">00:01</div>
-      <button class="extend-btn" type="button">연장하기</button>
+      <div class="timerRemain">{{min}}:{{sec}}</div>
+      <button @click="extendTime" class="extend-btn" type="button">연장하기</button>
       <div class="btn-lang" id="lang">ENG</div>
-      <div class="home" title="Home">
-        <img class="home-img" src="home.png" />
+      <div @click="goHome" class="home" title="Home">
+        <img style="pointer-events:none;" class="home-img" src="home.png" />
       </div>
       <div class="logout-btn" title="Logout">
-        <i class="fa fa-unlock-alt"></i>
+        <i class="fa fa-unlock-alt lock"></i>
       </div>
     </div>
   </header>
 </template>
 
 <script>
+//장시간 사용이 없어서 자동로그아웃 됩니다!. 
 export default {
   name: "app-header",
-  props: ["massage"],
+  props: ["massage","leftTime"],
+  data(){
+    return{
+      totalSec : 60*10,
+      timer: null
+    }
+  },
+  created(){
+    this.timer = setInterval(()=>{
+      this.totalSec-- 
+    },1000);
+  },
+  watch :{
+    totalSec(){
+      if(this.totalSec==0){
+        clearInterval(this.timer);
+        this.$emit('timeOver')
+      }
+    },
+  },
+  computed: {
+      min () {
+      const minute = parseInt(this.totalSec/60); 
+      return minute < 10 ? "0"+ minute.toString() : minute
+    },
+     sec () {
+      const second = parseInt(this.totalSec%60); 
+      return  second < 10 ? "0"+ second.toString() : second
+    },
+  },
+  methods:{
+    extendTime(){
+      this.totalSec = 60*10;
+    },
+    goHome(){
+      this.$emit('home'); 
+    }
+  }
 };
 </script>
 
@@ -41,7 +79,8 @@ header{
     align-items: center;
     position:fixed;
     width: calc(100vw - 120px);
-    z-index: 1001;
+    z-index: 3;
+    font-size: 16px;
 }
 .nav-hide{
     width: 17px;
@@ -60,10 +99,10 @@ header{
     padding-left: 12px;
     width: 288px;
 }
-
 /* 타이머 부분 */
 
 .timmer{
+   font-size: 16px;
     margin-left: auto;
     width: 357px;
     height: inherit;
@@ -73,6 +112,7 @@ header{
     text-align: center;
 }
 .timmer div{
+   font-size: 16px;
     height: inherit;
     line-height: 55px;
 }
@@ -93,6 +133,7 @@ header{
 }
 .extend-btn{
     border: 1px solid #ddd;
+    border-radius: 2px;
     font-size: 12px;
     width: 60px;
     height: 30px;
@@ -146,6 +187,10 @@ header{
 }
 .logout-btn{
     width: 32px;
+}
+.logout-btn .lock{
+  font-size: 17px;
+  color: #7e7e7e;
 }
 
 </style>
