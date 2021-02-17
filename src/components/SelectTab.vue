@@ -53,6 +53,9 @@ export default {
   border-bottom: 1px solid #b6985a;
   padding: -1px;
 }
+.select button img{
+  pointer-events: none;
+}
 .tab{
     height:42px;
     padding: 0 20px;
