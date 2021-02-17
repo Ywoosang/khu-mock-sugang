@@ -39,7 +39,7 @@
           </a>
           <a class="itm-clf">{{ content.division }}</a>
           <a class="itm-snum">ADD123-01</a>
-          <a class="itm-cname">{{ content.name }}</a>
+          <a style="text-align:left;" class="itm-cname">{{ content.name }}</a>
           <a class="itm-grd">0</a>
           <a class="itm-znum">30</a>
           <a class="itm-zanum">10</a>
@@ -69,7 +69,7 @@
 
 <script>
 export default {
-  props: ["isSearch", "courseFull","savedCourses"],
+  props: ["isSearch", "courseFull", "savedCourses"],
   data() {
     return {
       loading: true,
@@ -80,8 +80,8 @@ export default {
   },
   created() {
     setTimeout(() => {
-      if(this.savedCourses !== null){
-        this.contents = this.savedCourses; 
+      if (this.savedCourses !== null) {
+        this.contents = this.savedCourses;
         return;
       }
       this.makeContents();
@@ -101,21 +101,22 @@ export default {
       });
     },
     courseApply(num) {
-      if(this.rigisterPause) return;
-      this.rigisterPause = true; 
+      if (this.rigisterPause) return;
+      this.rigisterPause = true;
       new Promise((resolve) => {
         setTimeout(() => {
           this.$emit("apply", num);
+          // 수강신청 내역이 다 찼거나 인원초과 연습 
           if (this.courseFull || num === 10) {
-             this.rigisterPause = false;
-             return; 
-          } 
+            this.rigisterPause = false;
+            return;
+          }
           resolve();
         }, 1500);
       }).then(() => {
-        this.doneContents(num); 
-        this.$emit('save',this.contents); 
-        this.rigisterPause= false;
+        this.doneContents(num);
+        this.$emit("save", this.contents);
+        this.rigisterPause = false;
       });
     },
     doneContents(num) {
@@ -158,7 +159,7 @@ export default {
 .itm a {
   float: left;
   height: 45px;
-  line-height: 45px;
+  line-height: 42px;
   padding-left: 8px;
   box-sizing: border-box;
 }
@@ -174,6 +175,7 @@ export default {
   height: 28px;
   border-radius: 3px;
   padding: 0px 8px 2px;
+  margin-bottom: 10px;
   background-color: #253a73;
   color: white;
 }
