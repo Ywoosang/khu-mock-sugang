@@ -1,6 +1,6 @@
 <template>
   <div class="modal-window">
-    <div class="modal">
+    <div class="modal"> 
       <div class="top">
         <a class="modal-notice"
           ><span style="font-weight: 400; font-size: 18px">알림(notice)</span

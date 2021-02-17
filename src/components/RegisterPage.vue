@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="wrapper" tabindex="0">
     <modal-window
       @close="modalClose"
       @accept="modalAccept"
@@ -93,6 +93,11 @@ export default {
       timeOut: false,
       //
     };
+  },
+  created() {
+    window.addEventListener('keydown', (e)=> {
+      if (e.key.toLowerCase() === 'escape') this.modalClose();
+    });
   },
   computed: {
     courseFull() {
