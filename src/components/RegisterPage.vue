@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper" tabindex="0">
+  <div class="main">
     <modal-window
       @close="modalClose"
       @accept="modalAccept"
@@ -7,48 +7,51 @@
       v-bind:modalMessage="modalMessage"
       v-bind:courseDelete="isDelete"
     ></modal-window>
-    <side-bar
-      @noticeMenu="toNoticeMenu"
-      @courseMenu="toCourseMenu"
-      @registerMenu="toRegisterMenu"
-      @wishMenu="toWishMenu"
-    ></side-bar>
-    <section class="main">
-      <app-header @home="goHomePage" @timeOver="goTimeOutHomePage"></app-header>
-      <notice-menu @home="goHomePage" v-if="noticeMenu"></notice-menu>
-      <wish-menu v-if="wishMenu"></wish-menu>
-      <time-limit v-if="timeLimit>0 && registerMenu" v-bind:timeLimit="timeLimit"></time-limit>
-        <div v-if="contentTotal && timeLimit<=0" class="content">
-          <select-tab
-            v-bind:defaultTab="defaultValue"
-            @tab="changeTab"
-          ></select-tab>
-          <template v-if="defaultValue">
-            <wish-title></wish-title>
-            <wish-content
-              @apply="registerCourse"
-              @save="contentSave"
-              v-bind:savedCourses="savedCourses"
-              v-bind:courseFull="courseFull"
-            ></wish-content>
-          </template>
-          <template v-if="!defaultValue">
-            <search-title v-bind:searchNum="searchNum"></search-title>
-            <search-content
-              @apply="registerCourse"
-              @searchNum="searchNumber"
-              v-bind:modalPause="isModal"
-              v-bind:isSearch="isSearch"
-            ></search-content>
-          </template>
-        </div>
-        <course-list v-if="(timeLimit<=0 || courseMenu) && listTotal"
+    <app-header @home="goHomePage" @timeOver="goTimeOutHomePage"></app-header>
+
+    <div class="container">
+      <div class="content-wrapper">
+        <notice-content @home="goHomePage" v-if="noticeMenu"></notice-content>
+        <notice-modal @home="goHomePage" v-if="noticeMenu"> </notice-modal>
+        <wish-menu v-if="wishMenu"></wish-menu>
+        <time-limit
+          v-if="timeLimit > 0 && registerMenu"
+          v-bind:timeLimit="timeLimit"
+        ></time-limit>
+      </div>
+      <div v-if="contentTotal && timeLimit <= 0" class="content-wrapper">
+        <select-tab
+          v-bind:defaultTab="defaultValue"
+          @tab="changeTab"
+        ></select-tab>
+        <template v-if="defaultValue">
+          <wish-title></wish-title>
+          <wish-content
+            @apply="registerCourse"
+            @save="contentSave"
+            v-bind:savedCourses="savedCourses"
+            v-bind:courseFull="courseFull"
+          ></wish-content>
+        </template>
+        <template v-if="!defaultValue">
+          <search-title v-bind:searchNum="searchNum"></search-title>
+          <search-content
+            @apply="registerCourse"
+            @searchNum="searchNumber"
+            v-bind:modalPause="isModal"
+            v-bind:isSearch="isSearch"
+          ></search-content>
+        </template>
+        <course-list
+          v-if="(timeLimit <= 0 || courseMenu) && listTotal"
           @delete="deleteCourse"
           v-bind:courseList="courseList"
           v-bind:courseMenu="courseMenu"
         ></course-list>
-    </section>
-    <app-footer></app-footer>
+        <app-footer></app-footer>
+      </div>
+    </div>
+    <side-bar></side-bar>
   </div>
 </template>
 
@@ -63,12 +66,14 @@ import WishContent from "./WishContent.vue";
 import CourseList from "./CourseList.vue";
 import AppFooter from "./AppFooter.vue";
 import Modal from "./ModalWindow.vue";
-import NoticeMenu from "./NoticeSection.vue";
+import NoticeModal from "./NoticeModal.vue";
+import NoticeContent from "./NoticeContent.vue";
+
 import WishMenu from "./WishSection.vue";
 import TimeLimit from "./TimeLimit.vue";
 
 export default {
-  props :['timeLimit'],
+  props: ["timeLimit"],
   data() {
     return {
       defaultValue: true,
@@ -88,23 +93,22 @@ export default {
       wishMenu: false,
       // 수강신청 내역일 경우
       courseMenu: false,
-      registerMenu : false,
+      registerMenu: false,
       // 시간초과시 메인으로
       timeOut: false,
       //
     };
   },
   created() {
-    window.addEventListener('keydown', (e)=> {
-      if (e.key.toLowerCase() === 'escape') this.modalClose();
+    window.addEventListener("keydown", (e) => {
+      if (e.key.toLowerCase() === "escape") this.modalClose();
     });
   },
   computed: {
     courseFull() {
-      if(this.courseList.length >= 7) return true;
+      if (this.courseList.length >= 7) return true;
       return false;
     },
-
   },
   methods: {
     // 메뉴 변경
@@ -206,10 +210,8 @@ export default {
       this.timeOut = true;
     },
     goHomePage() {
-      this.$emit("home"); 
-    }
-    
-    
+      this.$emit("home");
+    },
   },
   components: {
     "app-header": AppHeader,
@@ -222,99 +224,22 @@ export default {
     "course-list": CourseList,
     "app-footer": AppFooter,
     "modal-window": Modal,
-    "notice-menu": NoticeMenu,
     "wish-menu": WishMenu,
-    "time-limit": TimeLimit
+    "time-limit": TimeLimit,
+    "notice-modal": NoticeModal,
+    "notice-content": NoticeContent,
   },
 };
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500&display=swap");
-html,
-body,
-.totalWrapper {
-  height: 100%;
-  width: 100%;
-  margin: 0;
-  font-family: "Noto Sans KR", sans-serif;
-  font-weight: 300;
-}
-body,
-.totalWrapper {
-  position: relative;
-}
-.totalWrapper {
-  display: block;
-  height: 100vh;
-}
-div {
-  box-sizing: border-box;
-}
-ul,
-li {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-section,
-article {
-  margin: 0;
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin: 0;
-}
-button {
-  outline: none;
-  border: none;
-}
-
-.wrapper {
-  width: calc(100vw - 125px);
-  height: inherit;
-  position: relative;
-}
-.main {
-  position: absolute;
-  top: 0;
-  height: inherit;
-  width: inherit;
-  margin-left: 120px;
-  position: relative;
-  overflow: auto;
-}
-
-.content {
-  width: 1660px;
-  margin: 75px 25px 105px 25px;
-  font-size: 0;
-}
-/* 공통 클래스 추가 */
-
-.hide {
-  display: none;
-}
-.red {
-  color: red;
+.content-wrapper {
+  padding: 15px 25px 25px;
+  overflow: hidden;
+  min-height: calc(100% - 35px);
+  padding-bottom: 0;
 }
 .itm:hover {
   background-color: rgb(250, 250, 250);
-}
-
-/* 공통 미디어쿼리 */
-@media screen and (min-width: 1820px) {
-  footer {
-    bottom: 0;
-  }
-}
-@media (min-width: 320px) and (max-width: 480px) {
-  footer {
-    display: none;
-  }
 }
 </style>
