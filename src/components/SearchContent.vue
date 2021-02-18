@@ -286,8 +286,7 @@ export default {
 </script>
 
 <style>
-/* 검색 탭 */
- .pnl-search {
+.pnl-search {
     margin-top: 15px;
     position: relative;
     margin-bottom: 15px;
@@ -317,17 +316,17 @@ export default {
     text-align: left;
     vertical-align: middle;
 }
-tbody {
+.pnl-search tbody {
     display: table-row-group;
     vertical-align: middle;
     border-color: inherit;
 }
-tr {
+.pnl-search tr {
     display: table-row;
     vertical-align: inherit;
     border-color: inherit;
 }
-table th {
+.pnl-search table th {
     position: relative;
     padding: 7px 3px 0 0;
     font-weight: 700;
@@ -335,10 +334,10 @@ table th {
     text-align: right;
     vertical-align: top;
 }
-table td {
+.pnl-search table td {
     padding: 0 0 5px 5px;
 }
-select {
+.pnl-search select {
     outline: none;
     appearance: none;
     width: 100%;
@@ -356,7 +355,7 @@ select {
     background-position: right 8px top 50%;
     line-height: 28px;
 }
-input{
+.pnl-search input{
     width: 100%;
     height: 34px;
     font-weight: 400;
@@ -373,7 +372,7 @@ input{
     outline: none;
     padding: 0 5px;
 }
-button.btn-search {
+.pnl-search button.btn-search {
     position:absolute;
     top: 12px;
     right: 20px;
@@ -392,8 +391,6 @@ button.btn-search {
     cursor: pointer;
     border-radius: 3px;
 }
-
-/* 로딩  */
 .loading {
   width: 100%;
   height: 400px;
@@ -415,4 +412,5 @@ button.btn-search {
   font-size: 14px;
   border-radius: 3px;
 }
+
 </style>
