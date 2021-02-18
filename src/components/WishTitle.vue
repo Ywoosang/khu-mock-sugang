@@ -1,45 +1,45 @@
 <template>
-   <div class="sw-header wish-header">
-                    <h2>수강희망과목</h2>
-                    <div class="buttonset">
-                        <span class="item">총 조회건수<em>10</em>건</span>
-                        <button type="button" class="btn-icon">
-                            <i class="fas fa-redo-alt"></i>
-                            <span>새로고침</span>
-                        </button>
-                    </div>
-                </div>
+  <div class="sw-header wish-header">
+    <h2>수강희망과목</h2>
+    <div class="buttonset">
+      <span class="item">총 조회건수<em>10</em>건</span>
+      <button type="button" class="btn-icon">
+        <i class="fas fa-redo-alt"></i>
+        <span>새로고침</span>
+      </button>
+    </div>
+  </div>
 </template>
 
 <script>
-export default {
-
-}
+export default {};
 </script>
 
 <style>
 .sw-header {
     overflow: hidden;
-    width: 100%;
     height: 42px;
     margin-top: 15px;
-}
-.sw-header h2 {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid red;
+  }
+  .sw-header h2 {
     float: left;
     margin-top: 6px;
     font-size: 16px;
     font-weight: 700;
     letter-spacing: -2px;
     word-spacing: -1px;
-}
-.sw-header .item {
+  }
+  .sw-header .item {
     position: relative;
     top: 4px;
     margin-left: 1px;
     padding: 0 15px;
     font-size: 14px;
-}
-.sw-header button{
+  }
+  .sw-header button {
     position: relative;
     margin: 0 3px;
     border-radius: 3px;
@@ -56,10 +56,11 @@ export default {
     background-color: #fff;
     border-color: #666;
     color: #333;
-}
-.sw-header .btn-icon:hover{
+  }
+  .sw-header .btn-icon:hover {
     background-color: #f7f7f7;
     border-color: #666;
     color: #333;
 }
+
 </style>
