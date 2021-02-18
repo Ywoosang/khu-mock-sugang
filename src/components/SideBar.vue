@@ -1,124 +1,172 @@
 <template>
-  <section class="re-sidebar">
-    <div class="re-nav">
-      <div class="re-myinfo"> 
-        <a style="font-weight: 400; font-size:16px">KYUNG HEE</a>
-        <a style="padding: 0; margin:0; font-size: 12px; font-weight: 500">2020109999</a>
-      </div>
-      <div class="wrap-menu">
-        <ul>
-          <li @click="toNotice" v-bind:class="{'selected-menu':menu.isNotice}" class="m-el notice">
-            <img src="icon-notice.png" />
-            <h4 class="menu-kor">공지사항</h4>
-          </li>
-          <li class="m-el">
-            <img src="icon-planning.png" />
-            <h4 class="menu-kor">종합시간표 조회</h4>
-          </li>
-          <li @click="toWishList" v-bind:class="{'selected-menu':menu.isWishList}" class="m-el">
-            <img src="icon-subject.png"/>
-            <h4 class="menu-kor">희망과목내역</h4>
-          </li>
-          <li @click="toCourseList" v-bind:class="{'selected-menu':menu.isCourseList}" class="m-el">
-            <img src="icon-search.png" />
-            <h4 class="menu-kor">수강신청내역</h4>
-          </li>
-          <li @click="toRegister" class="m-el registration" v-bind:class="{'selected-menu':menu.isRegister}">
-            <img src="icon-registration.png" />
-            <h4 class="menu-kor">수강신청</h4>
-          </li>
-        </ul>
-      </div>
+  <div class="nav">
+    <div
+      :style="{ background: '#747378 url(icon-login.png) no-repeat 50% 21px' }"
+      class="login"
+      style="cursor: pointer"
+    >
+      로그인
     </div>
-  </section>
-</template>
+    <div style="display:none;">
+      <a style="font-weight: 400; font-size: 16px">KYUNG HEE</a>
+      <a style="padding: 0; margin: 0; font-size: 12px; font-weight: 500"
+        >2020109999</a
+      >
+    </div>
+    <div class="wrap-menu">
+      <ul>
+        <li
+          @click="toNotice"
+          v-bind:class="{ 'selected-menu': menu.isNotice }"
+          class="notice"
+        >
+          <img src="icon-notice.png" />
+          <span class="menu-kor">공지사항</span>
+        </li>
+        <li>
+          <img src="icon-planning.png" />
+          <span class="menu-kor">종합시간표 조회</span>
+        </li>
+        <li
+          @click="toWishList"
+          v-bind:class="{ 'selected-menu': menu.isWishList }"
+        >
+          <img src="icon-subject.png" />
+          <span class="menu-kor">희망과목내역</span>
+        </li>
+        <li
+          @click="toCourseList"
+          v-bind:class="{ 'selected-menu': menu.isCourseList }"
+        >
+          <img src="icon-search.png" />
+          <span class="menu-kor">수강신청내역</span>
+        </li>
+        <li
+          @click="toRegister"
+          class="m-el registration"
+          v-bind:class="{ 'selected-menu': menu.isRegister }"
+          
+        >
+          <img src="icon-registration.png" />
+          <span class="menu-kor">수강신청</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</template> 
 
 <script>
 export default {
-  data(){
+  data() {
     return {
-      menu :{
-      isCourseList:false,
-      isRegister:false,
-      isNotice:true,
-      isWishList:false,
-      }
-    }
+      menu: {
+        isCourseList: false,
+        isRegister: false,
+        isNotice: true,
+        isWishList: false,
+      },
+    };
   },
   methods: {
     // 공지사항탭
-    toNotice(){
-       for(let menu in this.menu){
-        menu === 'isNotice' ? this.menu[menu] = true : this.menu[menu] =false;
+    toNotice() {
+      for (let menu in this.menu) {
+        menu === "isNotice"
+          ? (this.menu[menu] = true)
+          : (this.menu[menu] = false);
       }
-      this.$emit('noticeMenu')
-    }, 
+      this.$emit("noticeMenu");
+    },
     //희망과목탭
-    toWishList(){
-       for(let menu in this.menu){
-        menu === 'isWishList' ? this.menu[menu] = true : this.menu[menu] =false;
+    toWishList() {
+      for (let menu in this.menu) {
+        menu === "isWishList"
+          ? (this.menu[menu] = true)
+          : (this.menu[menu] = false);
       }
-      this.$emit('wishMenu')
+      this.$emit("wishMenu");
     },
     //신청내역탭
-    toCourseList(){
-      for(let menu in this.menu){
-        menu === 'isCourseList' ? this.menu[menu] = true : this.menu[menu] =false;
+    toCourseList() {
+      for (let menu in this.menu) {
+        menu === "isCourseList"
+          ? (this.menu[menu] = true)
+          : (this.menu[menu] = false);
       }
-      this.$emit('courseMenu')
+      this.$emit("courseMenu");
     },
     //수강신청탭
-    toRegister(){
-      for(let menu in this.menu){
-        menu === 'isRegister' ? this.menu[menu] = true : this.menu[menu] =false;
+    toRegister() {
+      for (let menu in this.menu) {
+        menu === "isRegister"
+          ? (this.menu[menu] = true)
+          : (this.menu[menu] = false);
       }
-      this.$emit('registerMenu')
-    }
-  }
-
+      this.$emit("registerMenu");
+    },
+  },
 };
 </script>
 
 <style>
-.re-sidebar{
-    position: absolute;
-    left: 0;
+.nav {
+    position: fixed;
     top: 0;
-    overflow-y: hidden;
-    background-color: #253A73;
-    width : 120px;
-    height: 100%;
+    left: 0;
+    bottom: 0;
+    z-index: 1001;
+    width: 120px;
+    background: #253a73;
+    transition: all .4s;
 }
-.wrapper .re-sidebar .re-nav{
-    
+.login {
+    display: block;
+}
+.nav .login {
+    position: relative;
+    width: 100%;
+    height: 94px;
+    padding-top: 56px;
+    /* background: #747378 url(./img/icon-login.png) no-repeat 50% 21px; */
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
     text-align: center;
-} 
-.re-nav h4{
-   color : white ;
+    box-sizing: border-box;
 }
-.re-myinfo{
-  color : white ;
-    background-color:#717075;
-    padding-top: 7px;
-    display: flex;
-    flex-direction: column;
-    height: 60px;
+.nav.login .wrap-menu {
+    height: calc(100% - 184px);
 }
-.name-kor{
-    height:40px;
+.nav .wrap-menu>ul {
+    position: absolute;
+    width: 100%;
 }
-.m-el{ 
-    height: 97px;
+.nav .wrap-menu>ul>li {
+    position: relative;
+    width: 100%;
+    padding: 20px 0;
+    text-align: center;
 }
-.m-el img{
-    margin-top:25px;
-    padding-bottom: 4px;
-} 
-.menu-kor{
+.nav .wrap-menu>ul>li img {
+    margin-bottom: 5px;
+}
+.nav .wrap-menu>ul>li [class^="menu"] {
     font-size: 12px;
-    font-weight: 400;
+    width: 100%;
+    color: #fff;
+    line-height: 1.4;
 }
-.selected-menu{
-    background-color: #B6985A;
+/* 푸터 */
+.container .footer {
+    width: 100%;
+    height: 35px;
+    line-height: 35px;
+    background: #f0f0f0;
+    font-size: 11px;
+    color: #999;
+    text-align: center;
+}
+.selected-menu {
+  background-color: #b6985a;
 }
 </style>
