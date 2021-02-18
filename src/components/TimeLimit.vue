@@ -1,5 +1,5 @@
 <template>
-  <div class="content notice-wrapper">
+  <div class="notice-wrapper">
     <div class="time-notice">
       <div class="time-text">
         <p>
