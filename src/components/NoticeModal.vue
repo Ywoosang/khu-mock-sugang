@@ -51,7 +51,7 @@ export default {
   height: 450px;
   position: absolute;
   top: 0;
-  left: 16px;
+  left: 136px;
   /* 스타일 삽입 */
 }
 .notice-modal::before {
