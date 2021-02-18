@@ -135,43 +135,22 @@
         <div id="macro" title="매크로 방지용 키입력" style="display:none;"></div>
         <div id="switDialog" title="착오자 내역" style="display:none;"></div>
     </div>
-    <div class="nav login">
-        <div :style="{ 'background': '#747378 url(icon-login.png) no-repeat 50% 21px' }" class="login" onclick="fnLogin('');" style="cursor:pointer">로그인</div>
-        <div class="wrap-menu">
-            <ul>
-                <li class="notice" onclick="fnLoad(urlCoreNotice,'this');">
-                    <img src="icon-notice.png">
-                    <span class="menu-kor">공지사항</span>
-                </li>
-                <li onclick="fnLoad(urlCoreLectureList,'this');">
-                    <img src="icon-planning.png">
-                    <span class="menu-kor">종합시간표 조회</span>
-                </li>
-                <li onclick="fnLogin('hakbu');">
-                    <img src="icon-subject.png">
-                    <span class="menu-kor">희망과목내역</span>
-                </li>
-                <li onclick="fnLogin('hakbu');">
-                    <img src="icon-search.png">
-                    <span class="menu-kor">수강신청내역</span>
-                </li>
-                <li class="registration" >
-                    <img src="icon-registration.png">
-                    <span class="menu-kor">수강신청</span>
-                </li>
-            </ul>
-        </div>
-    </div>
+    <side-bar></side-bar>
 </div>
 </template>
 
 <script>
+import SideBar from "./SideBar.vue"
 export default {
     data(){
         return {
             userId : '',
             userPwd : ''
         }
+    },
+    components : {
+        'side-bar' : SideBar
+
     },
     methods: {
         // 비동기 병렬 순차처리 
@@ -245,11 +224,10 @@ em {
 }
 
 .main {
+    margin-left: 120px;
     height: 100%;
     transition: all .4s;
 }
- 
- 
 .main>.wrap-loader {
     position: fixed;
 }
@@ -320,7 +298,7 @@ span, a {
 }
 /* 헤더부분  */
 .main .header-login {
-    min-width: 1210px;
+    min-width: 1260px;
     width: calc(100vw - 120px);
     height: 94px;
     padding: 0 30px;
@@ -366,7 +344,7 @@ span, a {
 
 /* 메인 부분 시작 */
 .container {
-    min-width: 1210px;
+    min-width: 1260px;
     width: calc(100vw - 120px);
     height: calc(100% - 60px);
     overflow: auto;
@@ -731,64 +709,5 @@ select option {
     line-height: 12px;
     color: #999;
     box-sizing: border-box;
-}
-/* 네비게이션바 */
-.nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    z-index: 3;
-    width: 120px;
-    background: #253a73;
-    transition: all .4s;
-}
-.nav.login .login {
-    display: block;
-}
-.nav .login {
-    display: none;
-    position: relative;
-    width: 100%;
-    height: 94px;
-    padding-top: 56px;
-    /* background: #747378 url(./img/icon-login.png) no-repeat 50% 21px; */
-    font-size: 16px;
-    font-weight: bold;
-    color: #fff;
-    text-align: center;
-    box-sizing: border-box;
-}
-.nav.login .wrap-menu {
-    height: calc(100% - 184px);
-}
-.nav .wrap-menu>ul {
-    position: absolute;
-    width: 100%;
-}
-.nav .wrap-menu>ul>li {
-    position: relative;
-    width: 100%;
-    padding: 20px 0;
-    text-align: center;
-}
-.nav .wrap-menu>ul>li img {
-    margin-bottom: 5px;
-}
-.nav .wrap-menu>ul>li [class^="menu"] {
-    font-size: 12px;
-    width: 100%;
-    color: #fff;
-    line-height: 1.4;
-}
-/* 푸터 */
-.container .footer {
-    width: 100%;
-    height: 35px;
-    line-height: 35px;
-    background: #f0f0f0;
-    font-size: 11px;
-    color: #999;
-    text-align: center;
 }
 </style>
