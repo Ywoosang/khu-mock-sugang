@@ -16,6 +16,7 @@
           <a class="itm-hakzum">학점</a>
           <a class="itm-time">강의시간/강의실</a>
           <a class="itm-isgub">이수구분</a>
+          <a style="flex:1;"></a>
         </div>
         <div
           class="itm"
@@ -48,7 +49,7 @@
           <a class="itm-hakzum">3</a>
           <a class="itm-time">월 10:30-13:00 (강의실)</a>
           <a class="itm-isgub">04</a>
-          <a style="width: 298px"></a>
+          <a style="flex:1;"></a>
         </div>
       </div>
     </div>
@@ -133,6 +134,7 @@ export default {
 
 <style>
 .itb-wrapper {
+  display: flex;
   border: 1px solid rgb(236, 236, 236);
   width: inherit;
   overflow: auto;
@@ -141,6 +143,7 @@ export default {
   height: 47px;
 }
 .itb {
+  flex:1;
   padding-top: 1px;
   border-top: 1px solid rgba(61, 177, 255, 0.472);
   width: 1731px;
@@ -152,6 +155,7 @@ export default {
   z-index: 1001;
   border-bottom: 1px solid rgba(221, 221, 221);
   text-align: center;
+  display:flex;
 }
 .itm:last-child {
   margin-bottom: 35px;
@@ -185,7 +189,7 @@ export default {
   background-color: #1e2f5d;
 }
 .itm .itm-clf,
-.itm .itm-snum,
+/* .itm .itm-snum, */
 .itm .itm-stime {
   width: 100px;
 }
@@ -193,13 +197,17 @@ export default {
 .itm .itm-time {
   width: 250px;
 }
-.itm .itm-grd,
+
 .itm .itm-znum,
-.itm .itm-zanum,
 .itm .itm-hakzum,
 .itm .itm-isgub {
   width: 60px;
 }
+.itm .itm-grd,.itm .itm-zanum{
+  width: 70px;
+}
+
+.itm .itm-snum,
 .itm .itm-gname,
 .itm .itm-lang {
   width: 120px;
@@ -257,10 +265,10 @@ export default {
   background-color: #f2f5fc;
 }
 /* 예비과목일 경우 클래스 추가해주기 */
-.spare-itm a {
-  background-color: #e1f4c3;
+.spare-itm,.spare-itm a {
+   background-color: #e1f4c3;
 }
-.spare-itm:hover a {
+.spare-itm:hover,.spare-itm:hover a {
   background-color: #ffffff !important;
 }
 /* 신청한 경우  클래스 추가해주기 */
