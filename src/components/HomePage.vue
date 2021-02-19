@@ -1,16 +1,4 @@
 <template>
-  <div class="main">
-    <div class="wrap-loader" style="display: none;"><span class="loading-helper"></span>
-        <div class="loader"></div>
-        <div class="loading-text">Loading</div>
-    </div>
-    <span class="to-top"   :style="{ 'background': 'rgba(116,115,120,0.4) url(icon-top.png) no-repeat 50% 50%' }"></span>
-    <div class="header-login">
-        <div class="control is-opened" title="메뉴닫기"></div>
-        <div title="경희대학교 수강신청시스템">
-            <img src="logo2.png">
-        </div>
-    </div>
     <div class="container">
         <div class="contents">
             <form name="form" id="form" method="post">
@@ -26,8 +14,8 @@
                             <select  :style="{ 'background-image': 'url(bg-select.png) no-repeat center 0' }" id="schedule_cd" name="schedule_cd" onchange="fnReload();">
                                 <option value="hakbu" selected="">학부 수강신청</option>
                             </select>
-                            <input v-model="userId" :style="{ 'background': 'url(icon-id.png) no-repeat 10px center' }" type="text" class="input-id" id="id" name="id" placeholder="학번 ( Student ID )">
-                            <input v-model="userPwd" :style="{ 'background': 'url(icon-pw.png) no-repeat 11px center' }" type="password" class="input-pw" id="pwd" name="pwd" placeholder="비밀번호 ( Password )">
+                            <input v-model="fakeId" :style="{ 'background': 'url(icon-id.png) no-repeat 10px center' }" type="text" class="input-id" id="id" name="id" placeholder="학번 ( Student ID )">
+                            <input v-model="fakePwd" :style="{ 'background': 'url(icon-pw.png) no-repeat 11px center' }" type="password" class="input-pw" id="pwd" name="pwd" placeholder="비밀번호 ( Password )">
                             <button @click="startTest" type="button" class="btn-login" id="btn_login">모의 수강신청 시작</button>
                             <button type="button" class="btn-login-sub">최초 사용자 비밀번호 등록</button>
 
@@ -119,7 +107,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="footer">
                 <div>
                     서울캠퍼스 02447 서울특별시 동대문구 경희대로 26 l 국제캠퍼스 17104 경기도 용인시 기흥구 덕영대로 1732 l 광릉캠퍼스 12001 경기도 남양주시 진접읍 광릉수목원로
@@ -128,29 +115,16 @@
                 </div>
             </div>
         </div>
-        <div id="message" title="알림(notice)" style="display:none;z-index:2;">
-            <p class="alert-warning"><span id="msg"></span></p>
-        </div>
-        <div id="retake" title="재수강 대상 과목조회" style="display:none;"></div>
-        <div id="macro" title="매크로 방지용 키입력" style="display:none;"></div>
-        <div id="switDialog" title="착오자 내역" style="display:none;"></div>
     </div>
-    <side-bar></side-bar>
-</div>
 </template>
 
 <script>
-import SideBar from "./SideBar.vue"
 export default {
     data(){
         return {
-            userId : '',
-            userPwd : ''
+            fakeId : '',
+            fakePwd : ''
         }
-    },
-    components : {
-        'side-bar' : SideBar
-
     },
     methods: {
         // 비동기 병렬 순차처리 
@@ -159,37 +133,29 @@ export default {
                 for(let index=0; index<this.length; index++){
                     // promise 를 반환하는 콜백함수 가정
                     await callback(this[index],index,this)
-            }}
-            // 사용자가 입력하는 효과 
-            "2020109999".split("").asyncForEach((el)=> {
-                return new Promise((resolve)=>{
+            }};
+            const inputEffect = (string,delay) =>{
+                string.split("").asyncForEach((el)=>{
+                    return new Promise((resolve)=>{
                     setTimeout(()=>{
-                        this.userId += el;
+                        delay ===100 ? this.fakeId +=el : this.fakePwd+=el;
                         resolve();
-                    },100);
-                });
-            });
-            "khu123456789@@".split("").asyncForEach((el)=> {
-                return new Promise((resolve)=>{
-                    setTimeout(()=>{
-                        this.userPwd += el;
-                        resolve();
-                    },50);
-                });
-            });
-        },},
+                    },delay);
+                }); });
+            }
+            inputEffect("2020109999",100);
+            inputEffect( "khu123456789@@",50);
+        },
+    },
     watch : {
-        userId(){
-            if(this.userId.length==10) {
+        fakeId(){
+            if(this.fakeId.length==10) {
                 setTimeout(()=>{
                      this.$emit('register');
                 },500)
             }
         }
-    }
-
-};
-
+    }}; 
 </script>
 
 <style>
@@ -298,6 +264,7 @@ span, a {
 }
 /* 헤더부분  */
 .main .header-login {
+    position:relative;
     min-width: 1260px;
     width: calc(100vw - 120px);
     height: 94px;
@@ -315,6 +282,19 @@ span, a {
     background: #253a73;
     transition: all .4s;
 }
+.main .header-login .control::before {
+    content: "";
+    position: absolute;
+    top: 44px;
+    width: 6px;
+    height: 6px;
+    border: solid #fff;
+    border-width: 1px 1px 0 0;
+    background: transparent;
+    transition: all .4s;
+    display: flex;
+    flex-direction: column;
+}
 .main .header-login>div {
     display: flex;
     align-items: center;
@@ -327,19 +307,6 @@ span, a {
     transform: rotate(
 -135deg
 );
-}
-.main .header-login .control:before {
-    content: "";
-    position: absolute;
-    top: 44px;
-    width: 6px;
-    height: 6px;
-    border: solid #fff;
-    border-width: 1px 1px 0 0;
-    background: transparent;
-    transition: all .4s;
-    display: flex;
-    flex-direction: column;
 }
 
 /* 메인 부분 시작 */
