@@ -269,7 +269,7 @@ export default {
           this.contents = this.courseNum.trim() === '' ? this.range(10) : this.range(1);
           this.$emit('searchNum',this.contents.length)
           return; 
-        },2200);
+        },3100);
     },
     keyPrevent(e){
       alert('매크로 방지를 위해 엔터키와 스페이스바 키는 사용하실 수 없습니다.')

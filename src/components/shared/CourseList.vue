@@ -111,6 +111,7 @@ export default {
     position: relative;
     border: none;
     height: 550px;
+    margin-bottom: 60px;
   }
   .susin {
     width: inherit;

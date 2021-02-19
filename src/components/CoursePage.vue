@@ -9,6 +9,7 @@
         <time-limit v-if="isRegisterMenu && timeLimit>0" v-bind:timeLimit="timeLimit"></time-limit>
         <!-- timeLimit 보고 모달 띄우기 -->
         <register-menu @renewal="renewalCourse" @home="$emit('home')" v-bind:Courses="courseList" v-if="isRegisterMenu && timeLimit<=0"></register-menu>
+        <course-footer></course-footer>
     </div>
 </template>
 
@@ -18,6 +19,7 @@ import NoticeMenu from './menu/NoticeMenu.vue';
 import RegisterMenu from './menu/RegisterMenu.vue';
 import WishMenu from './menu/WishMenu.vue';
 import TimeLimit from './common/TimeLimit.vue';
+import CourseFooter from './common/CourseFooter.vue';
 
 export default {
     props : ['timeLimit','menu'],
@@ -31,7 +33,8 @@ export default {
         'notice-menu' : NoticeMenu,
         'register-menu' : RegisterMenu,
         'wish-menu' : WishMenu,
-        'time-limit' : TimeLimit 
+        'time-limit' : TimeLimit,
+        CourseFooter 
     },
     computed: {
         isNoticeMenu(){
