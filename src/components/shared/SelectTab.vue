@@ -96,6 +96,7 @@ export default {
 
   /* 콘텐츠 영역 */
   .itb-wrapper {
+    display: flex;
     border: 1px solid rgb(236, 236, 236);
     width: inherit;
     overflow: auto;
@@ -104,6 +105,7 @@ export default {
     height: 47px;
   }
   .itb {
+     flex:1;
     padding-top: 1px;
     border-top: 1px solid rgba(61, 177, 255, 0.472);
     width: 1731px;
@@ -111,10 +113,14 @@ export default {
   .itm {
     font-size: 12px;
     height: 45px;
-    z-index: 1001;
+    z-index: 5;
     border-bottom: 1px solid rgba(221, 221, 221);
     text-align: center;
+    display:flex;
   }
+  .itm:hover {
+  background-color: rgb(250, 250, 250);
+}
   .itm:last-child {
     margin-bottom: 35px;
   }
@@ -124,14 +130,30 @@ export default {
     line-height: 42px;
     padding-left: 8px;
     box-sizing: border-box;
+    flex:1;
   }
-  .itm .itm-num {
-    width: 41px;
+  .itm .itm-num,.itm .emt {
+    flex:0.5;
+    padding:0;
   }
-  .itm .itm-apply {
-    width: 100px;
+  .itm .itm-snum{
+    flex:2;
+  }
+  .itm .itm-apply{
+    padding:0;
+  }
+  .itm .itm-time{
+    flex:3;
+  }
+  .itm .itm-stime{
+    flex:2;
+    text-align: start;
+  }
+  .itm .itm-cname{
+    flex:2;
   }
   .itm .apply-btn {
+    border: none;
     display: inline-block;
     width: 56px;
     height: 28px;
@@ -143,38 +165,6 @@ export default {
   }
   .itm .apply-btn:hover {
     background-color: #1e2f5d;
-  }
-  .itm .itm-clf,
-  .itm .itm-snum,
-  .itm .itm-stime {
-    width: 100px;
-  }
-  .itm .itm-cname,
-  .itm .itm-time {
-    width: 250px;
-  }
-  .itm .itm-grd,
-  .itm .itm-znum,
-  .itm .itm-zanum,
-  .itm .itm-hakzum,
-  .itm .itm-isgub {
-    width: 60px;
-  }
-  .itm .itm-gname,
-  .itm .itm-lang {
-    width: 120px;
-  }
-  .itm .itm-isgub {
-    width: 80px;
-  }
-  .itm .itm-time {
-    text-align: start;
-  }
-  .itm .itm-special {
-    width: 160px;
-  }
-  .itm .emt {
-    width: 41px;
   }
   .itm-notice {
     overflow: auto;

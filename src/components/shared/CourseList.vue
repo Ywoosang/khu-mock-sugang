@@ -29,7 +29,7 @@
           <a class="itm-isgub">이수구분</a>
           <a class="itm-zsugang">재수강 여부</a>
           <a class="itm-bigo">비고</a>
-          <a style="flex:1;"></a>
+          <a style="flex:4;"></a>
         </div>
         <div class="noCourses" v-if="noCourses">
           <a>수강신청 내역이 없습니다.</a>
@@ -48,7 +48,7 @@
           <a class="itm-isgub">이수구분</a>
           <a class="itm-zsugang"></a>
           <a class="itm-bigo"></a>
-          <a style="flex:1;"></a>
+          <a style="flex:4;"></a>
         </div>
       </div>
     </div>
@@ -97,16 +97,6 @@ export default {
   .itm .itm-time {
     text-align: center;
   }
-  .itm .itm-isgub {
-    width: 132px;
-  }
-  .itm .itm-zsugan {
-    width: 120px;
-  }
-  .itm .itm-bigo {
-    width: 132px;
-  }
-
   .susin-list {
     position: relative;
     border: none;
