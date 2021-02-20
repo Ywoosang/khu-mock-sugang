@@ -10,10 +10,12 @@
     <select-tab @tab="changeTab"></select-tab>
 
     <template v-if="defaultTab">
-      <default-title></default-title>
+      <default-title @refresh="contentRefresh"></default-title>
       <default-content
         @apply="registerCourse"
         @save="contentSave"
+        @refresh="contentRefresh"
+        v-bind:refresh="refresh"
         v-bind:savedCourses="savedCourses"
         v-bind:courseFull="courseFull"
       ></default-content>
@@ -59,6 +61,7 @@ export default {
       pause: false,
       // 강좌 검색
       searchNum: 10,
+      refresh : false,
     };
   },
   created() {
@@ -86,6 +89,16 @@ export default {
     modal: Modal,
   },
   methods: {
+    contentRefresh(status){
+      if(status=='start'){
+        this.courseList = []; 
+        this.refresh=true;
+        this.$emit('reset')
+      }else if(status=='end'){
+        this.refresh=false;
+      }
+       
+    },
     changeTab(num) {
       num == 0 ? (this.defaultTab = true) : (this.defaultTab = false);
     },

@@ -8,7 +8,7 @@
         <list-menu v-bind:courseList="courseList" v-if="isListMenu"></list-menu>
         <time-limit v-if="isRegisterMenu && timeLimit>0" v-bind:timeLimit="timeLimit"></time-limit>
         <!-- timeLimit 보고 모달 띄우기 -->
-        <register-menu @renewal="renewalCourse" @home="$emit('home')" v-bind:Courses="courseList" v-if="isRegisterMenu && timeLimit<=0"></register-menu>
+        <register-menu @reset="resetCourses" @renewal="renewalCourse" @home="$emit('home')" v-bind:Courses="courseList" v-if="isRegisterMenu && timeLimit<=0"></register-menu>
         <course-footer></course-footer>
     </div>
 </template>
@@ -57,6 +57,9 @@ export default {
     methods : {
         renewalCourse(courses){
             this.courseList=courses;
+        },
+        resetCourses(){
+            this.courseList=[];
         }
     }
 }

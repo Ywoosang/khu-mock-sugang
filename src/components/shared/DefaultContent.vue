@@ -70,7 +70,7 @@
 
 <script>
 export default {
-  props: ["isSearch", "courseFull", "savedCourses"],
+  props: ["isSearch", "courseFull", "savedCourses","refresh"],
   data() {
     return {
       loading: true,
@@ -128,8 +128,18 @@ export default {
         return el;
       });
     },
+        
   },
-};
+   watch: {
+      refresh(){
+        this.$emit('refresh','end') 
+        this.contents=[];
+        setTimeout(() => {
+          this.makeContents();
+      }, 500);
+      }
+   }
+  };
 </script>
 
 <style>

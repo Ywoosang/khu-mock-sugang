@@ -3,7 +3,7 @@
     <h2>수강희망과목</h2>
     <div class="buttonset">
       <span class="item">총 조회건수<em>10</em>건</span>
-      <button type="button" class="btn-icon">
+      <button @click="$emit('refresh','start')" type="button" class="btn-icon">
         <i class="fas fa-redo-alt"></i>
         <span>새로고침</span>
       </button>
