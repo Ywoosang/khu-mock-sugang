@@ -34,7 +34,7 @@ export default {
     return {
       // 헤더에서 시간종료
       //수강신청 시작시 기다리는 시간
-      timeLimit: 30,
+      timeLimit: 20,
       // 홈페이지 여부
       home: true,
       // 기본적으로 공지사항 탭으로 이동
