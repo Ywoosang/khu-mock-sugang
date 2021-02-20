@@ -120,7 +120,7 @@ export default {
   }
   .itm:hover {
   background-color: rgb(250, 250, 250);
-}
+  }
   .itm:last-child {
     margin-bottom: 35px;
   }

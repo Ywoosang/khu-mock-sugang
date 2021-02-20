@@ -184,6 +184,7 @@ export default {
   width: 100%;
 }
 .nav .wrap-menu > ul > li {
+  cursor: pointer;
   position: relative;
   width: 100%;
   padding: 20px 0;
