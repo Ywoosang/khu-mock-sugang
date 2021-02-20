@@ -3,7 +3,7 @@
         <div class="title">
            <div class="title-text">
             <span>2021학년도 1학기 수강신청</span>
-            <a @click="goHomePage">테스트 종료</a>
+            <a @click="goHomePage" style="cursor:pointer;">테스트 종료</a>
            </div>
         </div>
         <div class="main-text">
@@ -109,7 +109,6 @@ export default {
   width: 328px;
   height: 64px;
   margin-left: 32px;
-
 }
 .notice-modal  .main-text div span {
   line-height: 64px;

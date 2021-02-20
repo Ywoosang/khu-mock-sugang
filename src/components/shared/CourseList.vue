@@ -120,6 +120,7 @@ export default {
     height: 450px;
   }
   .delete-btn {
+    cursor: pointer;
     display: inline-block;
     width: 56px;
     height: 28px;

@@ -60,6 +60,7 @@ export default {
   border: 1px solid #ddd;
 }
 .modal button{
+  cursor: pointer;
   border:none;
 }
 .modal .top {

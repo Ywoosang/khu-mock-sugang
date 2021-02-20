@@ -9,15 +9,15 @@
     <div class="timmer">
       <div class="time">
         <div class="timerRemain">{{ min }}:{{ sec }}</div>
-        <button @click="extendTime" class="extend-btn" type="button">
+        <button @click="extendTime" class="extend-btn" type="button" style="cursor:pointer;">
           연장하기
         </button>
       </div>
-      <div class="btn-lang" id="lang">ENG</div>
-      <div @click="goHome" class="home" title="Home">
+      <div class="btn-lang" id="lang" style="cursor:not-allowed;">ENG</div>
+      <div style="cursor:pointer;" @click="goHome" class="home" title="Home">
         <img style="pointer-events: none" class="home-img" src="home.png" />
       </div>
-      <div class="logout-btn" title="Logout">
+      <div style="cursor:pointer;" @click="goHome" class="logout-btn" title="Logout">
         <i class="fa fa-unlock-alt lock"></i>
       </div>
     </div>

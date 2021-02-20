@@ -4,13 +4,13 @@
       v-if="homePage"
       :style="{ background: '#747378 url(icon-login.png) no-repeat 50% 21px' }"
       class="login"
-      style="cursor: pointer"
+      style="cursor:not-allowed;"
     >
       로그인
     </div>
 
     <div v-else>
-      <div class="myinfo">
+      <div class="myinfo"  style="cursor:grab;">
         <span class="name-kor">KYUNG HEE</span>
         <span class="name-eng">2020109999</span>
       </div>
@@ -18,15 +18,15 @@
     <div class="wrap-menu">
       <ul>
         <li
-          @click="toNotice"
+          @click="toNotice" 
           v-bind:class="{ 'selected-menu': menu.isNotice && !homePage }"
           class="notice"
         >
           <img src="icon-notice.png" />
           <span class="menu-kor">공지사항</span>
         </li>
-        <li
-          @click="toSchedule">
+        <li style="cursor:not-allowed;"
+        >
           <img src="icon-planning.png" />
           <span class="menu-kor">종합시간표 조회</span>
         </li>
@@ -73,6 +73,11 @@ export default {
   methods: {
     // 공지사항탭
     toNotice() {
+       if (this.homePage) {
+        alert("로그인이 필요한 서비스입니다.\n 로그인 화면으로 이동합니다.");
+        location.reload();
+        return;
+      }
       // 로그인하지 않은 상황
       for (let menu in this.menu) {
         menu === "isNotice"
@@ -123,9 +128,6 @@ export default {
       }
       this.$emit("changeMenu", "registerMenu");
     },
-    toSchedule(){
-      alert('기능 추가는 개발자에게 문의 부탁드립니다!') 
-    }
   },
 };
 </script>

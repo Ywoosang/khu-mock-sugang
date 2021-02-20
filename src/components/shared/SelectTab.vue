@@ -55,6 +55,7 @@ export default {
     pointer-events: none;
   }
   .tab-select .tab{
+    cursor: pointer;
       height:42px;
       padding: 0 20px;
       margin:0;
@@ -162,6 +163,7 @@ export default {
     margin-bottom: 10px;
     background-color: #253a73;
     color: white;
+    cursor: pointer;
   }
   .itm .apply-btn:hover {
     background-color: #1e2f5d;

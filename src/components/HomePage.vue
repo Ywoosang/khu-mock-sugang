@@ -8,27 +8,27 @@
                             <div class="wrap-lang">
                                 <input type="radio" id="radio1" name="lang" value="ko" checked=""><label
                                     for="radio1">Korean</label>
-                                <input type="radio" id="radio2" name="lang" value="en"><label
-                                    for="radio2">English</label>
+                                <!-- <input type="radio" id="radio2" name="lang" value="en"><label
+                                    for="radio2">English</label> -->
                             </div>
-                            <select  :style="{ 'background-image': 'url(bg-select.png) no-repeat center 0' }" id="schedule_cd" name="schedule_cd" onchange="fnReload();">
-                                <option value="hakbu" selected="">학부 수강신청</option>
+                            <select :style="{ 'background-image': 'url(bg-select.png) no-repeat center 0' }" id="schedule_cd" name="schedule_cd" disabled>
+                                <option>학부 수강신청</option>
                             </select>
                             <input v-model="fakeId" :style="{ 'background': 'url(icon-id.png) no-repeat 10px center' }" type="text" class="input-id" id="id" name="id" placeholder="학번 ( Student ID )">
                             <input v-model="fakePwd" :style="{ 'background': 'url(icon-pw.png) no-repeat 11px center' }" type="password" class="input-pw" id="pwd" name="pwd" placeholder="비밀번호 ( Password )">
-                            <button @click="startTest" type="button" class="btn-login" id="btn_login">모의 수강신청 시작</button>
-                            <button type="button" class="btn-login-sub">최초 사용자 비밀번호 등록</button>
+                            <button @click="startTest" style="cursor:pointer;" type="button" class="btn-login" id="btn_login">모의 수강신청 시작</button>
+                            <button style="cursor:not-allowed;" type="button" class="btn-login-sub">최초 사용자 비밀번호 등록</button>
 
                             <div class="text-btn">
-                                <span>ID찾기 </span>
-                                <span>비밀번호 찾기 </span>
+                                <span style="cursor:not-allowed;">ID찾기 </span>
+                                <span style="cursor:not-allowed;">비밀번호 찾기 </span>
                             </div>
                             <div class="manual">
-                                <p>
+                                <p style="cursor:not-allowed;">
                                     <i :style="{ 'background-image': 'url(icon-pc.png)' }" class="manual-pc"></i>
                                     <span class="manual-text">PC용 매뉴얼 </span>
                                 </p>
-                                <p>
+                                <p style="cursor:not-allowed;">
                                     <i :style="{ 'background-image': 'url(icon-mobile.png)' }" class="manual-mobile"></i>
                                     <span class="manual-text">모바일용 매뉴얼 </span>
                                 </p>
@@ -47,7 +47,7 @@
                             <div class="schedule">
                                 <p>
                                     학부 수강 안내 <br> Course Registration
-                                    <span :style="{ 'background': 'url(btn-more-blue.png) no-repeat center center' }" class="btn-more" onclick="goNotice('hakbu');"></span>
+                                    <span style="cursor:not-allowed;" :style="{ 'background': 'url(btn-more-blue.png) no-repeat center center' }" class="btn-more"></span>
                                 </p>
                                 <div :style="{ 'background': 'url(icon-clock.png) no-repeat left center' }" class="time">
                                     <span>2021/02/16 05:32:04</span>
@@ -59,7 +59,7 @@
                             <div class="schedule">
                                 <p>
                                     희망과목 수강 안내 <br> WishList Course Registration
-                                    <span :style="{ 'background': 'url(btn-more-blue.png) no-repeat center center' }" class="btn-more" onclick="goNotice('wish');"></span>
+                                    <span style="cursor:not-allowed;" :style="{ 'background': 'url(btn-more-blue.png) no-repeat center center' }" class="btn-more"></span>
                                 </p>
                                 <div :style="{ 'background': 'url(icon-clock.png) no-repeat left center' }" class="time">
                                     <span>2021/02/16 05:32:04</span>
@@ -71,7 +71,7 @@
                             <div class="schedule">
                                 <p>
                                     계절학기 수강 안내 <br> Summer/Winter Course Registration
-                                    <span :style="{ 'background': 'url(btn-more-blue.png) no-repeat center center' }" class="btn-more" onclick="goNotice('sess');"></span>
+                                    <span style="cursor:not-allowed;" :style="{ 'background': 'url(btn-more-blue.png) no-repeat center center' }" class="btn-more"></span>
                                 </p>
                                 <div :style="{ 'background': 'url(icon-clock.png) no-repeat left center' }" class="time">
                                     <span>2021/02/16 05:32:04</span>
@@ -83,7 +83,7 @@
                             <div class="schedule">
                                 <p>
                                     대학원 수강 안내<br> Graduate Course Registration
-                                    <span :style="{ 'background': 'url(btn-more-blue.png) no-repeat center center' }" class="btn-more"></span>
+                                    <span style="cursor:not-allowed;" :style="{ 'background': 'url(btn-more-blue.png) no-repeat center center' }" class="btn-more"></span>
                                 </p>
                                 <div :style="{ 'background': 'url(icon-clock.png) no-repeat left center' }" class="time">
                                     <span>2021/02/16 05:32:04</span>
